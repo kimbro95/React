@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function Btn({ btnName, fontSize = 14 }){   // 기본값 설정이 가능하다
+            return(
+                <button
+                    style={{
+                        backgroundColor: "skyblue",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 10,
+                        fontSize
+                    }}
+                >
+                {btnName}
+                </button>
+            );
+        }
+        // 타입 체크
+        Btn.propTypes = {
+            btnName: PropTypes.string.isRequired, // isRequired 값을 선언해야한다
+            fontSize: PropTypes.number, 
+        }
+        function App(){
+            return(
+            <div> 
+                <Btn btnName="button1" fontSize={20} />
+                <Btn btnName="button2" />
+            </div>
+            );
+        }
+        ReactDOM.render(<App />, root);
+    </script>
+</html>

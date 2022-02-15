@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function MinutesToHours(){
+            const [ amount, setAmount] = React.useState(0);
+            const [ inverted, setInverted] = React.useState(false);
+            const onChangeAmount = (event) => {
+                setAmount(event.target.value);
+            };
+            const reset = () => setAmount(0);
+            const flip = () => {
+                reset();
+                setInverted((current) => !current);
+            };
+
+            return(
+                <div>
+                    <div>
+                    <label htmlFor="Minutes">Minutes</label>
+                    <input
+                        value={inverted ? amount * 60 : amount}
+                        id="Minutes"
+                        placeholder="Minutes"
+                        type="number"
+                        onChange={onChangeAmount}
+                        disabled={inverted}
+                    />
+                    </div>
+                    <div>
+                        <label htmlFor="Hours">Hours</label>
+                        <input
+                            value={inverted ? amount : Math.round(amount / 60)}
+                            id="Hours"
+                            placeholder="Hours"
+                            type="number"
+                            onChange={onChangeAmount}
+                            disabled={!inverted}
+                        />
+                    </div>
+                    <button onClick={reset}>reset</button>
+                    <button onClick={flip}>flip</button>
+                </div>
+            );
+        }
+        function CmToInch(){
+            const [ length, setLength] = React.useState(0);
+            const [ inverted, setInverted] = React.useState(false);
+            const onChangeLength = (event) => {
+                setLength(event.target.value);
+            };
+            const reset = () => setLength(0);
+            const flip = () => {
+                reset();
+                setInverted((current) => !current);
+            };
+
+            return(
+                <div>
+                    <div>
+                        <label htmlFor="Cm">Cm</label>
+                        <input
+                            value={inverted ? length * 2.54 : length}
+                            id="Cm"
+                            placeholder="Cm"
+                            type="number"
+                            onChange={onChangeLength}
+                            disabled={inverted}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="Inch">Inch</label>
+                        <input
+                            value={inverted ? length : (length / 2.54).toFixed(6)}
+                            id="Inch"
+                            placeholder="Inch"
+                            type="number"
+                            onChange={onChangeLength}
+                            disabled={!inverted}
+                        />
+                    </div>
+                    <button onClick={reset}>reset</button>
+                    <button onClick={flip}>flip</button>
+                </div>
+            );
+        }
+
+        function App(){
+            const [index, setIndex] = React.useState("")
+            const onSelect = (event) =>{
+                setIndex(event.target.value);
+            }
+
+            return(
+            <div> 
+                <h1>Converter</h1>
+                <select value={index} onChange={onSelect}>
+                    <option value="">Select Option</option>
+                    <option value="0">MinutesToHours</option>
+                    <option value="1">CmToInch</option>
+                </select>
+                <hr/>
+                { index === "" ? `Select Option` : null }
+                { index === "0" ? <MinutesToHours /> : null }
+                { index === "1" ? <CmToInch /> : null }
+            </div>
+            );
+        }
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
