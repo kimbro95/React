@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-        function Btn({ btnName, fontSize = 14 }){   // 기본값 설정이 가능하다
+        function Btn({ btnName, fontSize = 14 }){   // 기본값 설정이 가능하다.
             return(
                 <button
                     style={{
@@ -27,7 +27,7 @@
         }
         // 타입 체크
         Btn.propTypes = {
-            btnName: PropTypes.string.isRequired, // isRequired 값을 선언해야한다
+            btnName: PropTypes.string.isRequired, // isRequired 값을 선언해야한다.
             fontSize: PropTypes.number, 
         }
         function App(){
