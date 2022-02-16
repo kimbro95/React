@@ -11,11 +11,26 @@ function App() {
       return;
     }
 
-    // ...¹è¿­º¯¼ö  ...À» ÀÌ¿ëÇØ ¹è¿­ ¼±¾ğµÈ °ªÀ» °¡Á®¿Ã¼öÀÖ´Ù.
-    // »õ·Î¿î°ª + ÇöÀçÀÇ ¹è¿­ = »õ·Î¿î¹è¿­
+    // ...ë°°ì—´ë³€ìˆ˜  ...ì„ ì´ìš©í•´ ë°°ì—´ ì„ ì–¸ëœ ê°’ì„ ê°€ì ¸ì˜¬ìˆ˜ìˆë‹¤.
+    // ìƒˆë¡œìš´ê°’ + í˜„ì¬ì˜ ë°°ì—´ = ìƒˆë¡œìš´ë°°ì—´
     setTodoList((prev) => [todo, ...prev]);
     setTodo("");
   }
+
+  // ë¶€ëª¨ìš”ì†Œë¥¼ ì´ìš©í•œ ì‚­ì œê¸°ëŠ¥
+  const deleteBtn = (e) => {
+    e.target.parentElement.remove();
+  };
+
+  // í•„í„°ë¥¼ ì´ìš©í•œ ì‚­ì œê¸°ëŠ¥
+  const deleteBtnFileter = (e) => {
+    const targetIdx = e.target.value;
+    setTodoList((prev) =>
+      prev.filter((todo, idx) => {
+        return Number(idx) !== Number(targetIdx);
+      })
+    )
+  };
 
   return (
     <div>
@@ -32,12 +47,16 @@ function App() {
       <hr />
       <ul>
         {todoList.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            {todo}
+            <button onClick={deleteBtn}> âŒ</button>
+            <button value={index} onClick={deleteBtnFileter}>âŒfilter</button>
+          </li>
         ))}
       </ul>
     </div>
   );
 }
-// ¸®¾×Æ®´Â ±âº»ÀûÀ¸·Î <li> ÀÇ ¸ğµç itemÀ» ÀÎ½ÄÇÏ±â ¶§¹®¿¡ key¸¦ ³Ö¾î¼­ °íÀ¯ÇÑ itemÀÌ µÇµµ·Ï ¸¸µé¾î¾ßÇÑ´Ù. (ListÀÇ index´Â °íÀ¯ÇÏ±â ¶§¹®¿¡ <li> ÀÇ key¿¡ index¸¦ ³ÖÀ½)
+// ë¦¬ì•¡íŠ¸ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ <li> ì˜ ëª¨ë“  itemì„ ì¸ì‹í•˜ê¸° ë•Œë¬¸ì— keyë¥¼ ë„£ì–´ì„œ ê³ ìœ í•œ itemì´ ë˜ë„ë¡ ë§Œë“¤ì–´ì•¼í•œë‹¤. (Listì˜ indexëŠ” ê³ ìœ í•˜ê¸° ë•Œë¬¸ì— <li> ì˜ keyì— indexë¥¼ ë„£ìŒ)
 
 export default App;
