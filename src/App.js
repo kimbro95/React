@@ -1,29 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-/*  CleanUP Funtion
-    component 가 destroy 될때
-    return 을 통해 Destroyed 출력
-
-    props or state 변화로 useEffect가 업데이트 될 때
-    리렌더링 -> 이전 이펙트 클린업 -> 이펙트
-*/
-function CleanUP() {
-  useEffect(() => {
-    console.log("Craeted :)");
-    return () => {
-      console.log("Destroyed :(");
-    }
-  }, []);
-  return <h2>CleanUP Function</h2>;
-}
 function App() {
-  const [show, setShow] = useState(true);
-  const onClick = () => setShow((prev) => !prev);
+  const [todo, setTodo] = useState("");
+  const [todoList, setTodoList] = useState([]);
+
+  const onChange = (e) => setTodo(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (todo === "") {
+      return;
+    }
+
+    // ...배열변수  ...을 이용해 배열 선언된 값을 가져올수있다.
+    setTodoList((prev) => [todo, ...prev]);
+    setTodo("");
+  }
 
   return (
     <div>
-      <button onClick={onClick} >{show ? `show` : `hide`}</button>
-      {show ? <CleanUP /> : null}
+      <h2>To Do List {todoList.length > 0 ? `(${todoList.length})` : null}</h2>
+      <form onSubmit={onSubmit}>
+        <input
+          value={todo}
+          onChange={onChange}
+          type="text"
+          placeholder="Write your to do..."
+        />
+        <button>Add To Do</button>
+      </form>
     </div>
   );
 }
