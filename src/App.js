@@ -19,15 +19,20 @@ function App() {
     <div>
       <h2>The Conin List {loading ? "" : `(${coninList.length})`} !!!</h2>
       <hr />
-      <ul>
-        {
-          coninList.map((coin, idx) => (
-            <li key={idx}>
-              {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD
-            </li>
-          ))
-        }
-      </ul>
+      {
+        loading ?
+          <strong>Loading...</strong>
+          :
+          <ul>
+            {
+              coninList.map((coin, idx) => (
+                <li key={idx}>
+                  {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD
+                </li>
+              ))
+            }
+          </ul>
+      }
     </div>
   );
 }
