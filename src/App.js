@@ -1,12 +1,42 @@
-import Button from "./Button";
-import styled from "./App.module.css"
+import { useState, useEffect } from "react";
 
 function App() {
-  /* create-react-app의 기능 - xxx.module.css 통해 css 를 설정하면 랜덤한 class 명을 갖는다. */
+  const [counter, setCounter] = useState(0);
+  const [keyword, setKeyword] = useState("");
+
+  const onClick = () => setCounter((prev) => prev + 1);
+  const onChange = (e) => setKeyword(e.target.value);
+
+  // 처음 랜더링시에 실행.
+  useEffect(() => {
+    console.log(`I run only onec.`);
+  }, []);
+
+  // counter에 변화가 생길때 실행.
+  useEffect(() => {
+    console.log(`I run when 'counter' change.`);
+  }, [counter]);
+
+  // keyword 변화가 생길때 실행.
+  useEffect(() => {
+    console.log(`I run when 'keyword' change.`);
+  }, [keyword]);
+
+  // counter or keyword 변화가 생길때 실행.
+  useEffect(() => {
+    console.log(`I run when 'counter' or 'keyword' change.`);
+  }, [counter, keyword]);
+
   return (
     <div>
-      <h1 className={styled.title}>Hello React !!!</h1>
-      <Button text={"Button"} />
+      <input
+        onChange={onChange}
+        value={keyword}
+        type="text"
+        placeholder="Search here..."
+      />
+      <h1>{counter}</h1>
+      <button onClick={onClick}>click me</button>
     </div>
   );
 }
