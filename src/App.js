@@ -1,62 +1,35 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todoList, setTodoList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [coninList, setConinList] = useState([]);
 
-  const onChange = (e) => setTodo(e.target.value);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (todo === "") {
-      return;
-    }
-
-    // ...배열변수  ...을 이용해 배열 선언된 값을 가져올수있다.
-    // 새로운값 + 현재의 배열 = 새로운배열
-    setTodoList((prev) => [todo, ...prev]);
-    setTodo("");
-  }
-
-  // 부모요소를 이용한 삭제기능
-  const deleteBtn = (e) => {
-    e.target.parentElement.remove();
+  const getCoinList = async () => {
+    const response = await fetch("https://api.coinpaprika.com/v1/tickers");
+    const json = await response.json();
+    setConinList(json);
+    setLoading(false);
   };
 
-  // 필터를 이용한 삭제기능
-  const deleteBtnFileter = (e) => {
-    const targetIdx = e.target.value;
-    setTodoList((prev) =>
-      prev.filter((todo, idx) => {
-        return Number(idx) !== Number(targetIdx);
-      })
-    )
-  };
+  useEffect(() => {
+    getCoinList();
+  }, []);
 
   return (
     <div>
-      <h2>To Do List {todoList.length > 0 ? `(${todoList.length})` : null}</h2>
-      <form onSubmit={onSubmit}>
-        <input
-          value={todo}
-          onChange={onChange}
-          type="text"
-          placeholder="Write your to do..."
-        />
-        <button>Add To Do</button>
-      </form>
+      <h2>The Conin List {loading ? "" : `(${coninList.length})`} !!!</h2>
       <hr />
       <ul>
-        {todoList.map((todo, index) => (
-          <li key={index}>
-            {todo}
-            <button onClick={deleteBtn}> ❌</button>
-            <button value={index} onClick={deleteBtnFileter}>❌filter</button>
-          </li>
-        ))}
+        {
+          coninList.map((coin, idx) => (
+            <li key={idx}>
+              {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD
+            </li>
+          ))
+        }
       </ul>
     </div>
   );
 }
-// 리액트는 기본적으로 <li> 의 모든 item을 인식하기 때문에 key를 넣어서 고유한 item이 되도록 만들어야한다. (List의 index는 고유하기 때문에 <li> 의 key에 index를 넣음)
 
 export default App;
