@@ -15,7 +15,9 @@ function App() {
   }
   const onSubmit = (e) => {
     e.preventDefault();
-    setResult([selectCoin.symbol, amount > 0 ? amount / selectCoin.quotes.USD.price : 0]);
+    if (selectCoin !== "") {
+      setResult([selectCoin.symbol, amount > 0 ? amount / selectCoin.quotes.USD.price : 0]);
+    }
   }
 
   const getCoinList = async () => {
