@@ -1,42 +1,29 @@
 import { useState, useEffect } from "react";
 
-function App() {
-  const [counter, setCounter] = useState(0);
-  const [keyword, setKeyword] = useState("");
+/*  CleanUP Funtion
+    component 가 destroy 될때
+    return 을 통해 Destroyed 출력
 
-  const onClick = () => setCounter((prev) => prev + 1);
-  const onChange = (e) => setKeyword(e.target.value);
-
-  // 처음 랜더링시에 실행.
+    props or state 변화로 useEffect가 업데이트 될 때
+    리렌더링 -> 이전 이펙트 클린업 -> 이펙트
+*/
+function CleanUP() {
   useEffect(() => {
-    console.log(`I run only onec.`);
+    console.log("Craeted :)");
+    return () => {
+      console.log("Destroyed :(");
+    }
   }, []);
-
-  // counter에 변화가 생길때 실행.
-  useEffect(() => {
-    console.log(`I run when 'counter' change.`);
-  }, [counter]);
-
-  // keyword 변화가 생길때 실행.
-  useEffect(() => {
-    console.log(`I run when 'keyword' change.`);
-  }, [keyword]);
-
-  // counter or keyword 변화가 생길때 실행.
-  useEffect(() => {
-    console.log(`I run when 'counter' or 'keyword' change.`);
-  }, [counter, keyword]);
+  return <h2>CleanUP Function</h2>;
+}
+function App() {
+  const [show, setShow] = useState(true);
+  const onClick = () => setShow((prev) => !prev);
 
   return (
     <div>
-      <input
-        onChange={onChange}
-        value={keyword}
-        type="text"
-        placeholder="Search here..."
-      />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me</button>
+      <button onClick={onClick} >{show ? `show` : `hide`}</button>
+      {show ? <CleanUP /> : null}
     </div>
   );
 }
