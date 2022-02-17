@@ -16,14 +16,20 @@ function App() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (selectCoin !== "") {
-      setResult([selectCoin.symbol, amount > 0 ? amount / selectCoin.quotes.USD.price : 0]);
+      setResult([selectCoin.symbol, amount > 0 ? amount / selectCoin.quotes.KRW.price : 0]);
     }
   }
 
   const getCoinList = async () => {
-    const response = await fetch("https://api.coinpaprika.com/v1/tickers");
+    const response = await fetch("https://api.coinpaprika.com/v1/tickers?quotes=KRW", {
+      headers:
+      {
+        Accept: 'application/json'
+      }
+    });
+
     const json = await response.json();
-    setConinList(json);
+    setConinList(json.slice(0, 100));
     setLoading(false);
   };
 
@@ -42,23 +48,24 @@ function App() {
           <div>
             <form onSubmit={onSubmit}>
               <div>
-                <label htmlFor="coin">Coin - </label>
+                <label htmlFor="Coin">Coin - </label>
                 <select onChange={onChangeCoin}>
                   <option value={""} key={""}>Select Coin</option>
                   {
                     coninList.map((coin, idx) => (
                       <option value={idx} key={idx}>
-                        {coin.name}({coin.symbol})  -  $ {coin.quotes.USD.price} USD
+                        {coin.name}({coin.symbol})  -  {Number(coin.quotes.KRW.price).toLocaleString()} KRW
                       </option>
                     ))
                   }
                 </select>
               </div>
               <div>
-                <label htmlFor="USD">USD - </label>
+                <label htmlFor="KRW">KRW - </label>
                 <input
+                  value={amount}
                   onChange={inputChage}
-                  id="USD"
+                  id="KRW"
                   type="number"
                 />
               </div>
@@ -70,9 +77,17 @@ function App() {
                 result.length === 0 ?
                   null
                   :
-                  `${result[0]} : ${result[1]}`
+                  `${result[1]} ${result[0]}`
               }
             </h2>
+            <hr />
+            <ul>
+              {coninList.map((coin, idx) => (
+                <li key={idx}>{coin.name}({coin.symbol})<br />
+                  ￦ {Number(coin.quotes.KRW.price.toFixed(1)).toLocaleString()} KRW
+                </li>
+              ))}
+            </ul>
           </div>
       }
     </div>
