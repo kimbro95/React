@@ -2,17 +2,17 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // Link를 사용하여 새로고침 없이 페이지 이동
 
-function Movie({ coverImg, title, rating, summary, genres }) {
+function Movie(props) {
     return (
         <div>
             <div>
-                <img src={coverImg} alt={title} />
+                <img src={props.coverImg} alt={props.title} />
                 <h2>
-                    <Link to="/movie">{title} {rating}</Link>
+                    <Link to={`/movie/${props.id}`}>{props.title} {props.rating}</Link>
                 </h2>
-                <p>{summary}</p>
+                <p>{props.summary}</p>
                 <ul>
-                    {genres.map((value) => (
+                    {props.genres.map((value) => (
                         <li key={value}>{value}</li>
                     ))}
                 </ul>
@@ -22,6 +22,7 @@ function Movie({ coverImg, title, rating, summary, genres }) {
 }
 
 Movie.propTypes = {
+    id: PropTypes.number.isRequired,
     coverImg: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
