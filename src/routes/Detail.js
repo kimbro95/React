@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // URL¿¡ ÀÖ´Â ÆÄ¶ó¹ÌÅÍ °ªÀ» ¹ŞÀ» ¼ö ÀÖ´Ù.
+import { useParams } from 'react-router-dom'; // URLì— ìˆëŠ” íŒŒë¼ë¯¸í„° ê°’ì„ ë°›ì„ ìˆ˜ ìˆë‹¤.
+import styles from "./Detail.module.css";
 
 function Detail() {
-    const { id } = useParams(); // URL¿¡ ÀÖ´Â ÆÄ¶ó¹ÌÅÍ °ªÀ» ¹ŞÀ» ¼ö ÀÖ´Ù. ex. {id: '123'}
+    const { id } = useParams(); // URLì— ìˆëŠ” íŒŒë¼ë¯¸í„° ê°’ì„ ë°›ì„ ìˆ˜ ìˆë‹¤. ex. {id: '123'}
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -18,29 +19,34 @@ function Detail() {
     }, []);
 
     return (
-        <div>
-            {loading ? (
-                <h1>Loading...</h1>
-            ) : (
-                <div>
-                    <img src={movie.large_cover_image} alt={movie.title} />
-                    <hr />
-
-                    <h1>{movie.title_long}</h1>
-                    <h3>Rating: {movie.rating} / Runtime: {movie.runtime}m</h3>
-                    <ul>
-                        {movie.genres.map((g) => (
-                            <li key={g}><h5>{g}</h5></li>
-                        ))}
-                    </ul>
-                    <hr />
-
-                    <h3>Description</h3>
-                    <p>{movie.description_full}</p>
-                </div>
-            )
-            }
-        </div>
+        <div className={styles.container} style={{ background: `url(${movie.background_image_original})` }}>
+            {
+                loading ? (
+                    <div className={styles.loader} >
+                        <h1>Loading....</h1>
+                    </div>
+                ) : (
+                    <div className={styles.movie}>
+                        <img src={movie.large_cover_image} alt={movie.title} className={styles.movie__img} />
+                        <div>
+                            <h1 className={styles.movie__title}>
+                                <strong>{movie.title} ({movie.year})</strong>
+                            </h1>
+                            <h3 className={styles.movie__rating}>
+                                â­ <strong>{movie.rating}  </strong>
+                            </h3>
+                            Runtime - {movie.runtime} m
+                            <ul className={styles.movie__genres}>
+                                {movie.genres.map((value) => (
+                                    <li key={value}>{value}&nbsp;</li>
+                                ))}
+                            </ul>
+                            <hr />
+                            <p>{movie.description_full}</p>
+                        </div>
+                    </div>
+                )}
+        </div >
     );
 }
 
