@@ -42,7 +42,7 @@ function Detail() {
                                 ))}
                             </ul>
                             <hr />
-                            <p>{movie.description_full}</p>
+                            <p className={styles.movie__description}>{movie.description_full}</p>
                         </div>
                     </div>
                 )}
