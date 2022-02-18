@@ -16,3 +16,9 @@
 4. package.json 의 마지막줄에 "homepage": "https://[github계정이름].github.io/[저장소이름]" ⭐(배포할 URL)
 5. 터미널에서 npm run deploy
 6. https://[github계정이름].github.io/[저장소이름] 로 접속 후 확인
+
+### ✔ 프로젝트 결과물
+
+![home](https://user-images.githubusercontent.com/44858436/154426276-0cd4e4a6-cfd8-4b59-a996-0626677eba89.png)
+
+![detail](https://user-images.githubusercontent.com/44858436/154426299-7eb02902-fc8a-4ac7-a4c7-26fdf2b2e20e.png)
