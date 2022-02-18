@@ -1,5 +1,6 @@
 import Home from "./routes/Home";
 import Detail from "./routes/Detail";
+import Search from "./routes/Search";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +12,9 @@ function App() {
     <Switch>
       <Route path="/movie/:id">
         <Detail />
+      </Route>
+      <Route path="/search/:keyword">
+        <Search />
       </Route>
       <Route path="/">
         <Home />

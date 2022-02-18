@@ -22,8 +22,9 @@ function Detail() {
         <div className={styles.container} style={{ background: `url(${movie.background_image_original})` }}>
             {
                 loading ? (
-                    <div className={styles.loader} >
-                        <h1>Loading....</h1>
+                    <div className={styles.container}>
+                        <div className={styles.dim}></div>
+                        <div className={styles.circle}></div>
                     </div>
                 ) : (
                     <div className={styles.movie}>

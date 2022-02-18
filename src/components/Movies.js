@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // Link를 사용하여 새로고침 없이 페이지 이동
 import styles from "./Movie.module.css";
 
-function Movie(props) {
+function Movies(props) {
     return (
         <div className={styles.movie}>
             <img src={props.coverImg} alt={props.title} className={styles.movie__img} />
@@ -24,7 +24,7 @@ function Movie(props) {
     );
 }
 
-Movie.propTypes = {
+Movies.propTypes = {
     id: PropTypes.number.isRequired,
     coverImg: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -33,4 +33,4 @@ Movie.propTypes = {
     genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
-export default Movie;
+export default Movies;
