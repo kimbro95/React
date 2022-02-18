@@ -10,10 +10,10 @@ import {
 function App() {
   return <Router>
     <Switch>
-      <Route path="/movie/:id">
+      <Route path="/ReactJS-Study/movie/:id">
         <Detail />
       </Route>
-      <Route path="/search/:keyword">
+      <Route path="/ReactJS-Study/search/:keyword">
         <Search />
       </Route>
       <Route path="/">

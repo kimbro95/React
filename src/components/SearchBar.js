@@ -10,9 +10,9 @@ function SearchBar(props) {
     const handelSubmut = (e) => {
         e.preventDefault();
         if (keyword !== "") {
-            history.push(`/search/${keyword}`);
+            history.push(`/ReactJS-Study/search/${keyword}`);
         } else {
-            history.push(`/`);
+            history.push(`/ReactJS-Study/`);
         }
     }
 

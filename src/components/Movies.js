@@ -9,7 +9,7 @@ function Movies(props) {
             <img src={props.coverImg} alt={props.title} className={styles.movie__img} />
             <div>
                 <h2 className={styles.movie__title}>
-                    <Link to={`/movie/${props.id}`}>{props.title}</Link>
+                    <Link to={`/ReactJS-Study/movie/${props.id}`}>{props.title}</Link>
                 </h2>
                 <h3 className={styles.movie__year}>{props.year}</h3>
                 <p>{props.summary.length > 235 ? `${props.summary.slice(0, 235)}...` : props.summary}</p>
